@@ -24,6 +24,12 @@ app.post("/urls", (req, res) => {
   res.redirect(`/urls/${strRandom}`);
 });
 
+//POST for Delete shortURL
+app.post("/urls/:shortURL/delete", (req, res) => {
+  delete urlDatabase[req.params.shortURL];
+  res.redirect(`/urls`);
+});
+
 app.set("view engine", "ejs");
 
 const urlDatabase = {
