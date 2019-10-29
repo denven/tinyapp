@@ -18,16 +18,38 @@ const generateRandomString = function(len) {
 app.use(bodyParser.urlencoded({extended: true}));
 
 //POST should put before GET methond
+//server-side get POST from the form when creating shortURL for LongURL in url_new
 app.post("/urls", (req, res) => {
   let strRandom = generateRandomString(6);
-  urlDatabase[strRandom] = req.body.longURL;
-  res.redirect(`/urls/${strRandom}`);
+  urlDatabase[strRandom] = addHttpPrefix(req.body.longURL);
+  res.redirect(`/urls/${strRandom}`);  //redirect to shortURL page
 });
 
-//POST for Delete shortURL
+const addHttpPrefix = function(url) {
+  if (url.substr(0,7) !== "http://") {
+    return "http://" + url;
+  }
+};
+
+//response POST for modify longURL from form in url_show
+app.post("/urls/:shortURL/edit", (req, res) => {
+  //update shortURL's longURL
+  let shortURL = req.params.shortURL;
+  urlDatabase[shortURL] = addHttpPrefix(req.body.newURL);
+  console.log(shortURL, req.body.newURL);
+  res.redirect(`/urls/${shortURL}`);
+});
+
+//POST for Delete Button in url_index
 app.post("/urls/:shortURL/delete", (req, res) => {
+  console.log("get delete post for shortURL", req.params.shortURL);
   delete urlDatabase[req.params.shortURL];
   res.redirect(`/urls`);
+});
+
+//GET process from Edit button in url_index
+app.get("/urls/:shortURL/edit", (req, res) => {
+  res.render(`/urls_show`);
 });
 
 app.set("view engine", "ejs");
@@ -38,19 +60,23 @@ const urlDatabase = {
   ":u7Po9": "http://www.facebook.com"
 };
 
+//rootpage
 app.get("/", (req, res) => {
   res.send("Welcome to TinyUrl App!");
 });
 
+//show the URLs list
 app.get("/urls", (req, res) => {
   let templateVars = { urls: urlDatabase };
   res.render("urls_index", templateVars);
 });
 
+//show a form to create shortURL for input longURL.
 app.get("/urls/new", (req, res) => {
   res.render("urls_new");
 });
 
+//url_show: display one shortURL's short/long Link info
 app.get("/urls/:shortURL", (req, res) => {
   let templateVars = {
     shortURL: req.params.shortURL,
@@ -60,11 +86,12 @@ app.get("/urls/:shortURL", (req, res) => {
   res.render("urls_show", templateVars);
 });
 
+//redirect to display the actual webpage by longURL
 app.get("/u/:shortURL", (req, res) => {
-  //console.log("Now in /u/:shortURL, with req.url:",  req.url);
+  console.log("Now in /u/:shortURL, with req.url:",  req.url);
   let shortURL = req.params.shortURL;
   let longURL = urlDatabase[shortURL];
-  //console.log("two urls", shortURL, longURL);
+  console.log("two urls", shortURL, longURL);
   res.redirect(longURL);
 });
 
