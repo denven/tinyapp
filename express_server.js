@@ -2,6 +2,16 @@ const express = require("express");
 const app = express();
 const PORT = 8080; // default port 8080
 const bodyParser = require("body-parser");
+const cookieParser = require('cookie-parser');
+
+//to avoid an input url doesn't contail http:// prefix
+const addHttpPrefix = function(url) {
+  if (url.substr(0, 7) !== "http://") {
+    return "http://" + url;
+  } else {
+    return url;
+  }
+};
 
 //generate randomly of len chars' string
 const generateRandomString = function(len) {
@@ -16,20 +26,28 @@ const generateRandomString = function(len) {
 
 //bodyParser will translate body into req.body for forms POST
 app.use(bodyParser.urlencoded({extended: true}));
+app.use(cookieParser());
+
+//add code for cookies impelments: process POST from user login form
+app.post("/login", (req, res) => {
+  console.log(req.body.username);
+  res.cookie('username', req.body.username);
+  res.redirect(`/urls`);  //redirect to index page
+});
+
+//process logout POST
+app.post("/logout", (req, res) => {
+  res.clearCookie('username');
+  res.redirect(`/urls`);  //redirect to index page
+});
 
 //POST should put before GET methond
-//server-side get POST from the form when creating shortURL for LongURL in url_new
+//server-side get POST from the form in url_new when submitting to create a new shortURL
 app.post("/urls", (req, res) => {
   let strRandom = generateRandomString(6);
   urlDatabase[strRandom] = addHttpPrefix(req.body.longURL);
   res.redirect(`/urls/${strRandom}`);  //redirect to shortURL page
 });
-
-const addHttpPrefix = function(url) {
-  if (url.substr(0,7) !== "http://") {
-    return "http://" + url;
-  }
-};
 
 //response POST for modify longURL from form in url_show
 app.post("/urls/:shortURL/edit", (req, res) => {
@@ -49,7 +67,8 @@ app.post("/urls/:shortURL/delete", (req, res) => {
 
 //GET process from Edit button in url_index
 app.get("/urls/:shortURL/edit", (req, res) => {
-  res.render(`/urls_show`);
+  let templateVars = { username: req.cookies.username };
+  res.render(`/urls_show`, templateVars);
 });
 
 app.set("view engine", "ejs");
@@ -67,35 +86,36 @@ app.get("/", (req, res) => {
 
 //show the URLs list
 app.get("/urls", (req, res) => {
-  let templateVars = { urls: urlDatabase };
+  let templateVars = { urls: urlDatabase, username: req.cookies.username };
   res.render("urls_index", templateVars);
 });
 
 //show a form to create shortURL for input longURL.
 app.get("/urls/new", (req, res) => {
-  res.render("urls_new");
+  let templateVars = { username: req.cookies.username };
+  res.render("urls_new", templateVars);
 });
 
 //url_show: display one shortURL's short/long Link info
 app.get("/urls/:shortURL", (req, res) => {
   let templateVars = {
     shortURL: req.params.shortURL,
-    longURL: urlDatabase[req.params.shortURL]
+    longURL: urlDatabase[req.params.shortURL],
+    username: req.cookies.username
   };
-  //console.log(templateVars);
+  console.log(urlDatabase);
+  console.log(templateVars);
   res.render("urls_show", templateVars);
 });
 
 //redirect to display the actual webpage by longURL
 app.get("/u/:shortURL", (req, res) => {
-  console.log("Now in /u/:shortURL, with req.url:",  req.url);
   let shortURL = req.params.shortURL;
   let longURL = urlDatabase[shortURL];
-  console.log("two urls", shortURL, longURL);
   res.redirect(longURL);
 });
 
-//for testing
+//for route pattern test
 app.get("/jeremy/:foo/:bar/:baz", (req, res) => {
   console.log("req params", req.params);
   res.json(req.params);

@@ -24,6 +24,7 @@
         </tr>
       </thead>
       <tbody>
+        <!-- Add two buttons: Edit and Delete -->
         <% for(let url in urls) { %>
           <tr>
             <td><%= url %></td>
@@ -34,6 +35,7 @@
                 <input class="btn btn-outline-danger" type="submit", name="Delete" value="Delete"> </form> </td>
           </tr>
         <% } %>
+
       </tbody>
     </table>
   </main>
