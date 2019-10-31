@@ -13,12 +13,14 @@
 
     <!-- Add Login/Logout Forms -->
    <% if(!email) { %>
+    <form class="form-inline">
     <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
       <div class="navbar-nav">
         <a class="nav-item nav-link" href="/login">Login</a>
         <a class="nav-item nav-link" href="/register">Register</a>
       </div>
     </div>
+    </form>
   <% } else { %>
     <form class="form-inline" action="/logout" method="POST">
       <div class="form-group mx-sm-3 mb-2">
