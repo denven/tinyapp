@@ -1,3 +1,4 @@
+//Functions called in routers.js
 
 //to avoid an input url without a http:// prefix
 const addUrlHttpPrefix = function(url) {

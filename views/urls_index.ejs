@@ -6,16 +6,18 @@
 
   <!-- Bootstrap CSS -->
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
-  <title>TinyApp</title>
+  <title>My URLs - TinyApp</title>
 
-  <% include ./partials/_header %>
+  <% include ./partials/_header %>   <!-- Include the Top(Header) navigator -->
 
 </head>
 <body>
+  <!-- My URLs Page -->
   <main style="margin: 1em;">
     <h3>My URLs</h3>
     <table class="table">
-      <thead>
+      <thead>  
+        <!-- URL list's table title -->
         <tr>
           <th>ShortURL</th>
           <th>LongURL</th>
@@ -26,8 +28,9 @@
         </tr>
       </thead>
       <tbody>
-        <!-- Add two buttons: Edit and Delete -->
+      
         <!-- Display the URLs from userDatabase, the urls stored in the template variable `urls`-->
+        <!-- Add two buttons: Edit and Delete -->
         <% for(let url in urls) { %>
           <tr>
             <td><%= url %></td>

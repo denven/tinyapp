@@ -40,17 +40,19 @@ routers.post("/register", (req, res) => {
 //process POST from user login form
 routers.post("/login", (req, res) => {
   if (helper.isUserAlreadyExists(req.body.email, users)) {
-    const userID = helper.getUserIdByEmail(req.body.email, users);
-    let hashedPassword = users[userID].password;  //user hashed password in user database
+    const userId = helper.getUserIdByEmail(req.body.email, users);
+    let hashedPassword = users[userId].password;  //user hashed password stored in user database
     let isPwdRight = bcrypt.compareSync(req.body.password, hashedPassword);
+    console.log(userId, hashedPassword);
 
     if (isPwdRight) {
-      req.session.user_id = userID;
+      req.session.user_id = userId;
       res.redirect(`/urls`);  //redirect to index page
     } else {
       res.render(`urls_login`, { email: "", msg: errMsg.PWD_NOT_RIGHT });
     }
   } else {
+    //the user is not registered in users' database
     res.render(`urls_login`, { email: "", msg: errMsg.USR_NOT_EXIST });
   }
 });
@@ -136,7 +138,7 @@ routers.get("/urls/new", (req, res) => {
   res.render("urls_new", templateVars);
 });
 
-//url_show: display one shortURL's short/long Link info
+//url_show render: display one shortURL's short/long Link info according to login status
 routers.get("/urls/:shortURL", (req, res) => {
   let shortURL = req.params.shortURL;
   let userEmail = helper.getUserEmailByID(req.session.user_id, users);
@@ -146,18 +148,21 @@ routers.get("/urls/:shortURL", (req, res) => {
     if (!req.session.user_id) {
       templateVars["msg"] = errMsg.USR_NOT_LOGIN;
     } else {
-      //user logined in
-      //templateVars["email"] = helper.getUserEmailByID(req.session.user_id, users); //logined in user
+      //user already logined in
       if (req.session.user_id !== helper.getUserIdByShortURL(shortURL, urlDatabase)) {
-        templateVars["longURL"] = "";   //don't show longURL info when requesting to other user's url
+        //don't show longURL info when requesting to other user's url
+        templateVars["longURL"] = "";
         templateVars["msg"] = errMsg.SHTURL_NO_PERMIT;
       } else {
-        templateVars["longURL"] = urlDatabase[req.params.shortURL]["longURL"]; //authorized right user
+        //authorized right user
+        templateVars["longURL"] = urlDatabase[req.params.shortURL]["longURL"];
       }
     }
   } else {
-    templateVars["msg"] = errMsg.SHTURL_NOT_EXIST;  //url not in the database
+    //url not in the database
+    templateVars["msg"] = errMsg.SHTURL_NOT_EXIST;
   }
+
   res.render("urls_show", templateVars);
 });
 
@@ -167,15 +172,9 @@ routers.get("/u/:shortURL", (req, res) => {
   let templateVars = { "shortURL": shortURL, "longURL": "", "email": "", "msg": "" };
   
   if (shortURL in urlDatabase) {
-    //for user who is already logined in
-    templateVars["email"] = helper.getUserEmailByID(req.session.user_id, users);
-    if (req.session.user_id !== helper.getUserIdByShortURL(shortURL, urlDatabase)) {
-      templateVars["msg"] = errMsg.SHTURL_NO_PERMIT;  //view other people's url is not allowed
-      res.render(`urls_show`, templateVars);  //show limit info to this user
-    } else {
-      helper.updateUrlVisitCount(shortURL, urlDatabase);  //authorized user is allowed to redirect
-      res.redirect(urlDatabase[shortURL].longURL);
-    }
+    //authorized user is allowed to redirect
+    helper.updateUrlVisitCount(shortURL, urlDatabase);
+    res.redirect(urlDatabase[shortURL].longURL);
   } else {
     //not existed url request
     templateVars["email"] = helper.getUserEmailByID(req.session.user_id, users);
