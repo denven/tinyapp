@@ -43,7 +43,6 @@ routers.post("/login", (req, res) => {
     const userId = helper.getUserIdByEmail(req.body.email, users);
     let hashedPassword = users[userId].password;  //user hashed password stored in user database
     let isPwdRight = bcrypt.compareSync(req.body.password, hashedPassword);
-    console.log(userId, hashedPassword);
 
     if (isPwdRight) {
       req.session.user_id = userId;
