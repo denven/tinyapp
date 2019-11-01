@@ -182,4 +182,12 @@ routers.get("/u/:shortURL", (req, res) => {
   }
 });
 
+//routers.get(`/*`);
+routers.get('*',function(req,res) {
+  res.location(`urls_404`);
+  res.redirect('404.html');
+  res.render(`urls_404`);
+});
+
+
 module.exports = routers;
