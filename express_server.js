@@ -17,6 +17,7 @@ app.use(cookieSession({
 
 app.set("view engine", "ejs");
 
+app.use(express.static('public'));  //add a directory for store 404 error files
 app.use(`/`, routers);
 
 app.listen(PORT, () => {
