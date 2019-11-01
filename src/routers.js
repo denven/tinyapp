@@ -124,7 +124,10 @@ routers.get("/register", (req, res) => {
 routers.get("/urls", (req, res) => {
   let userEmail = helper.getUserEmailByID(req.session.user_id, users);
   let userUrls = helper.getUrlsForUser(req.session.user_id, urlDatabase);
-  let templateVars = { "urls": userUrls, "email": userEmail };
+  let templateVars = { "urls": userUrls, "email": userEmail, "msg": "" };
+  if (!req.session.user_id) {
+    templateVars["msg"] = errMsg.USR_NOT_LOGIN;
+  }
   res.render("urls_index", templateVars);
 });
 
