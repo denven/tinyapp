@@ -5,8 +5,7 @@ TinyApp is a full stack web application built with Node and Express that allows 
 
 ## Final Product
 
-!["screenshot description"](#)
-!["screenshot description"](#)
+[Screenshots](https://github.com/denven/tinyapp/tree/feature/user-registration/docs)
 
 ## Dependencies
 
@@ -71,9 +70,8 @@ TinyApp is a full stack web application built with Node and Express that allows 
     - "Update" longURL is not allowed
     - However, access the longURL from shortURL link is always allowed.
 
-### LongURL Access from shortURL is not limited via http://localhost:8080/u/i3BoGr from Address bar.
-  - The actual longURL can be visted from a valid shortURL(exists in **URL Database**) from the address bar. 
-  * eg: http://localhost:8080/u/i3BoGr will be redirected to https://www.goole.ca as this shortURL is created and stored by some user in our database.
+### LongURL Access
+  - The actual LongURL access from A VALID shortURL(exists in **URL Database**) is **NOT** limited via THE form of http://localhost:8080/u/xxxxxx from Address bar. eg: http://localhost:8080/u/i3BoGr will be redirected to https://www.goole.ca as this shortURL is created and stored by some user in our database.
 
 
 ## Technical issue Note:
