@@ -5,7 +5,9 @@ TinyApp is a full stack web application built with Node and Express that allows 
 
 ## Final Product
 
-[Screenshots](https://github.com/denven/tinyapp/tree/feature/user-registration/docs) See docs/ directory.
+Link: [Screenshots](https://github.com/denven/tinyapp/tree/feature/user-registration/docs) 
+
+screenshots are put int `docs/` directory.
 
 ## Dependencies
 
@@ -22,12 +24,10 @@ TinyApp is a full stack web application built with Node and Express that allows 
 - Run the development web server using the `node express_server.js` command.
 
 ## Test user accounts (three already created in memory):
-
-          email         password
-- user01@example.com      123
-- user02@example.com  purple-monkey-dinosaur
-- tester@example.com  dishwasher-funk
-
+            email           password
+    - user01@example.com      123
+    - user02@example.com  purple-monkey-dinosaur
+    - tester@example.com  dishwasher-funk
 ## Functionalities
 
 ### Web Pages (By Navigation Header)
@@ -58,23 +58,32 @@ TinyApp is a full stack web application built with Node and Express that allows 
   - You need to type password twice to ensure you password is correctly typed;
   - Once registered successfuly, you will login on.
 
-- TinyURL (Info) Page: e.g, http://localhost:8080/urls/VfHfkZ  `VfHfkZ` is the random shortURL id-string.
-  - This page cannot be open from cliking on navigation header,
+- ShortURL Page: The information page to display a shortURL's information
+  - e.g, http://localhost:8080/urls/VfHfkZ  `VfHfkZ` is the random shortURL id-string.
+
+  - This page cannot be open from cliking on navigation header;
   - This page can be open from address bar or a click on the "Edit" button in My URLs page;
+
   - Contents: LongURL string, shortURL string with a link which can be redirect to the actual longURL;
   - Operation: A text box combined with a "Update" button can be used to modify longURL for current shortURL;
   - **Note:**
-  - An access to an invalid shortURL(which doesn't exist in **URL Databse**) will be checked to protect site from crashing;
-  - An access to a valid shortURL page(which doesn't belong to the operator) will be limited.
+  - An access to an invalid shortURL(**which doesn't exist in the URL Databse**) will be checked to protect site from crashing;
+  - An access to a valid shortURL(but which doesn't belong to the operator) will be limited in this page.
     - LongURL will not be displayed
     - "Update" longURL is not allowed
     - However, access the longURL from shortURL link is always allowed.
 
 ### LongURL Access
-  - The actual LongURL access from A VALID shortURL(exists in **URL Database**) is **NOT** limited via THE form of http://localhost:8080/u/xxxxxx from Address bar. eg: http://localhost:8080/u/i3BoGr will be redirected to https://www.goole.ca as this shortURL is created and stored by some user in our database.
+  - The actual LongURL access from A VALID shortURL(**exists in URL Database**) is **NOT limited** via the FORM of http://localhost:8080/u/xxxxxx from Address bar. eg: http://localhost:8080/u/i3BoGr will be redirected to https://www.goole.ca as this shortURL is created and stored by some user in our database.
 
+### 404 Error Process
+  - When the page accessed doesn't exist, it will redirect to a http://localhost:8080/404.html
+  - **Note:**   404 error doesn't take the invalid shortURL access while the access URL address is valid, e.g:
+    - http://localhost:8080/urls/xxxxx (xxxxx is not a valid shortURL)
+    - http://localhost:8080/u/yyyyyy (yyyyy is not a valid shortURL)
+    - See **ShortURL Page**
 
-## Technical issue Note:
+## Technical issue Note
   As we are using a memory database instead of a database saving data on physical disk, all data (created after werb-server started) will lose when web-server restarts (except some hard coded initialised data).
 
 ## Related Links
