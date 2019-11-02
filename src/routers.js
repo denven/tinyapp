@@ -134,7 +134,7 @@ routers.get("/urls", (req, res) => {
 //show a form to create shortURL for input longURL.
 routers.get("/urls/new", (req, res) => {
   if (!req.session.user_id) {
-    res.redirect("/login");
+    return res.redirect("/login");
   }
   let templateVars = {email: helper.getUserEmailByID(req.session.user_id, users)};
   res.render("urls_new", templateVars);
