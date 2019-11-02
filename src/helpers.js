@@ -66,7 +66,6 @@ const getUrlsForUser = function(userID, urlDb) {
 
 const isUserAlreadyExists = function(email, userDb) {
   for (let userID in userDb) {
-    console.log(email, userDb[userID].email);
     if (email === userDb[userID].email) {
       return true;
     }
