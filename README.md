@@ -10,6 +10,7 @@ Link: [More Screenshots](https://github.com/denven/tinyapp/tree/feature/user-reg
 ![Login](./docs/Login.png)
 ![My URLs](https://github.com/denven/tinyapp/blob/master/docs/My%20URLs.png)
 ![ShortURL](./docs/ShortURL.png)
+![ShortURL Acess without permission](https://github.com/denven/tinyapp/blob/master/docs/ShortURL%20Invalid.png)
 ![404 Error](https://github.com/denven/tinyapp/blob/master/docs/404%20Error.png)
 
 ## Dependencies
