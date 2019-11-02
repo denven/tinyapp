@@ -8,7 +8,7 @@ const urlDatabase = require("./database").urlDatabase;
 const bcrypt = require('bcrypt');
 
 routers.use((req, res, next) => {
-  console.log(`Enable ruouting Successfuly`, Date.now());
+  //console.log(`Enable ruouting Successfuly`, Date.now());
   next();
 });
 
