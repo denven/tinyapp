@@ -1,88 +1,52 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <head>
+    <% include ./partials/_head %> 
+    <title>My URLs - TinyApp</title>
+  </head>
 
-  <!-- Bootstrap CSS -->
-  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
-  <title>My URLs - TinyApp</title>
+  <body>
+    <!-- My URLs Page -->
+    <% include ./partials/_header %>   <!-- Include the Top(Header) navigator -->
+    <% include ./partials/_modal %>   <!-- Include the modal template and modal JS -->
 
-  <% include ./partials/_header %>   <!-- Include the Top(Header) navigator -->
+    <main style="margin: 1em;">
+      <h3>My URLs</h3>
 
-</head>
-<body>
-  <!-- My URLs Page -->
-  <main style="margin: 1em;">
-    <h3>My URLs</h3>
-    <table class="table">
-      <thead>  
-        <!-- URL list's table title -->
-        <tr>
-          <th>ShortURL</th>
-          <th>LongURL</th>
-          <th>Created Date</th>
-          <th>Visted Times</th>
-          <th>Edit</th>
-          <th>Delete</th>
-        </tr>
-      </thead>
-      <tbody>
-      
-        <!-- Display the URLs from userDatabase, the urls stored in the template variable `urls`-->
-        <!-- Add two buttons: Edit and Delete -->
-        <% for(let url in urls) { %>
+      <table class="table">
+        <thead>  
+          <!-- URL list's table title -->
           <tr>
-            <td><%= url %></td>
-            <td><%= urls[url]["longURL"] %></td>
-            <td><%= urls[url]["date"] %></td>
-            <td align="left"><%= urls[url]["visits"] %></td>
-            <td> <form method="GET" action="/urls/<%= url %>">
-                <input class="btn btn-outline-primary" type="submit", name="edit" value="Edit"> </form> </td>
-            <td> <form method="POST" action="/urls/<%= url %>/delete">
-                <input class="btn btn-outline-danger" type="submit", name="Delete" value="Delete"> </form> </td>
+            <th>ShortURL</th>
+            <th>LongURL</th>
+            <th>Created Date</th>
+            <th>Visted Times</th>
+            <th>Edit</th>
+            <th>Delete</th>
           </tr>
-        <% } %>
+        </thead>
 
-      </tbody>
-    </table>
+        <tbody>
+        
+          <!-- Display the URLs from userDatabase, the urls stored in the template variable `urls`-->
+          <!-- Add two buttons: Edit and Delete -->
+          <% for(let url in urls) { %>
+            <tr>
+              <td><%= url %></td>
+              <td><%= urls[url]["longURL"] %></td>
+              <td><%= urls[url]["date"] %></td>
+              <td align="left"><%= urls[url]["visits"] %></td>
+              <td> <form method="GET" action="/urls/<%= url %>">
+                  <input class="btn btn-outline-primary" type="submit", name="edit" value="Edit"> </form> </td>
+              <td> <form method="POST" action="/urls/<%= url %>/delete">
+                  <input class="btn btn-outline-danger" type="submit", name="Delete" value="Delete"> </form> </td>
+            </tr>
+          <% } %>
 
-  </main>
-    <!-- Use bootstrap's modal dialog to display messages sent from the server side -->
-    <div class="modal" id="myModal" tabindex="-1" role="dialog">
-      <div class="modal-dialog" role="document">
-        <div class="modal-content">
-          <div class="modal-header">
-            <h5 class="modal-title">Hint Message</h5>
-            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-              <span aria-hidden="true">&times;</span>
-            </button>
-          </div>
-          <div class="modal-body">
-            <p><%= msg %></p>   <!-- Show Hint Message to User, "msg" string passed down from routers.js by template objectjs -->
-          </div>
-          <div class="modal-footer">
-            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-          </div>
-        </div>
-      </div>
-    </div>
+        </tbody>
+      </table>
+
+    </main>
   
-</body>
-  <!-- Bootstrap JS -->
-  <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
-  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
-
-    <!-- Use bootstrap modal dialog to give messages: the msg variable is passed down 
-      from routers.js when something ocurs not normally -->
-    <script charset="utf-8">      
-        //get msg from login render
-        if("<%= msg %>") {
-          $('#myModal').modal('show')
-          //alert("<%= msg %>");
-        }
-     // $('#myModal').modal('toggle')
-    </script>
-
+  </body>
 </html>
