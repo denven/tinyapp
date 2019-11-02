@@ -9,8 +9,8 @@ Link: [More Screenshots](https://github.com/denven/tinyapp/tree/feature/user-reg
 
 ![Login](./docs/Login.png)
 ![My URLs](https://github.com/denven/tinyapp/blob/master/docs/My%20URLs.png)
-![404 Error](https://github.com/denven/tinyapp/blob/master/docs/404%20Error.png)
 ![ShortURL](./docs/ShortURL.png)
+![404 Error](https://github.com/denven/tinyapp/blob/master/docs/404%20Error.png)
 
 ## Dependencies
 
