@@ -28,13 +28,18 @@ screenshots are put int `docs/` directory.
     - user01@example.com      123
     - user02@example.com  purple-monkey-dinosaur
     - tester@example.com  dishwasher-funk
+
 ## Functionalities
 
 ### Web Pages (By Navigation Header)
-- TinyApp/My URLs: http://localhost:8080 , redirect to http://localhost:8080/urls.
+- TinyApp(Home Page): http://localhost:8080 or http://localhost:8080/
+  - Give message when user has not logined in;
+  - Redirect to http://localhost:8080/urls when user has already logined in.
+
+  - My URLs: http://localhost:8080/urls
   - Display current user's shortURL, longURL, creation date, visited times, with "Edit", "Delete" buttons in rows.
-  - If no user is logining on, only a title will display, no URL info displayed.
-  - If user login in, display the user's shortURL information lists.
+  - If no user logined in, only a title will display, no URL info displayed. And a hit message will prompt.
+  - If user has logined in, display the user's shortURL information lists.
   - Operation Button:
     - Edit: redirect to shortURL's page http://localhost:8080/urls/b6UTxQ
     - Delete: delete current shortURL information in database without confirmation.
