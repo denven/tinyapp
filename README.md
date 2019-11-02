@@ -5,9 +5,12 @@ TinyApp is a full stack web application built with Node and Express that allows 
 
 ## Final Product
 
-Link: [Screenshots](https://github.com/denven/tinyapp/tree/feature/user-registration/docs) 
+Link: [More Screenshots](https://github.com/denven/tinyapp/tree/feature/user-registration/docs) in docs directory.
 
-screenshots are put int `docs/` directory.
+![Login](./docs/Login.png)
+![My URLs](./docs/My URLs.png)
+![404 Error](./docs/404 Error.png)
+![ShortURL](./docs/ShortURL.png)
 
 ## Dependencies
 
