@@ -92,8 +92,8 @@ routers.put("/urls/:shortURL", (req, res) => {
   res.redirect(`/urls/${shortURL}`);
 });
 
-//POST for Delete Button in url_index
-routers.post("/urls/:shortURL/delete", (req, res) => {
+//POST/override to delete for Delete Button in url_index
+routers.delete("/urls/:shortURL", (req, res) => {
   delete urlDatabase[req.params.shortURL];
   res.redirect(`/urls`);
 });

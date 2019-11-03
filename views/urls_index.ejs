@@ -38,7 +38,8 @@
               <td align="left"><%= urls[url]["visits"] %></td>
               <!-- modify the Edit form into the a href tag, more simple -->
               <td> <a href="/urls/<%= url %>"<button class="btn btn-outline-primary" type="hidden">Edit</button></a> </td>
-              <td> <form method="POST" action="/urls/<%= url %>/delete">
+              <!-- Add motheod delete override post -->
+              <td> <form method="POST" action="/urls/<%= url %>?_method=DELETE">
                   <button class="btn btn-outline-danger" type="submit">Delete</button></form> </td>
             </tr>
           <% } %>
