@@ -36,10 +36,10 @@
               <td><%= urls[url]["longURL"] %></td>
               <td><%= urls[url]["date"] %></td>
               <td align="left"><%= urls[url]["visits"] %></td>
-              <td> <form method="GET" action="/urls/<%= url %>">
-                  <input class="btn btn-outline-primary" type="submit", name="edit" value="Edit"> </form> </td>
+              <!-- modify the Edit form into the a href tag, more simple -->
+              <td> <a href="/urls/<%= url %>"<button class="btn btn-outline-primary" type="hidden">Edit</button></a> </td>
               <td> <form method="POST" action="/urls/<%= url %>/delete">
-                  <input class="btn btn-outline-danger" type="submit", name="Delete" value="Delete"> </form> </td>
+                  <button class="btn btn-outline-danger" type="submit">Delete</button></form> </td>
             </tr>
           <% } %>
 
