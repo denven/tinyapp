@@ -5,9 +5,9 @@ const PWD_NOT_MATCH = `😟: Two passwords does not match each other, type again
 const EML_ARD_USED = `🤗: Email has aready been used, try another one.`;
 const PWD_NOT_RIGHT = `🤔: Wrong password, try it again.`;
 const USR_NOT_EXIST = `😔: Account not exsits in user Database.`;
-const SHTURL_NOT_EXIST = `😨: This shortURL does not exist, no Long URL matched!`;
+const SHTURL_NOT_EXIST = `😨: This shortURL does not exist, longURL cannot be shown or updated!`;
 const SHTURL_NO_PERMIT = `😠: This shortURL does not belong to you, cannot redirect!`;
-const USR_NOT_LOGIN = `😐: You have not logined in, some information will not show!`;
+const USR_NOT_LOGIN = `😐: You have not logined in, view and update permission is limited!`;
 
 module.exports = {
   PWD_NOT_MATCH,

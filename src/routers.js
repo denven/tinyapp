@@ -76,9 +76,14 @@ routers.post("/urls", (req, res) => {
   res.redirect(`/urls/${strRandom}`);  //redirect to shortURL page
 });
 
-//response PUT/[Override POST] for modifying longURL from the form in url_show
+//response PUT/[Override POST] for modifying longURL from the form in urls_show
 routers.put("/urls/:shortURL", (req, res) => {
   let shortURL = req.params.shortURL;
+  if (!(shortURL in urlDatabase)) {
+    res.redirect(`/urls/${shortURL}`);
+    return;
+  }
+
   let userID = helper.getUserIdByShortURL(shortURL, urlDatabase);
   if (userID === req.session.user_id) {
     //update information in database as modification is done
@@ -144,24 +149,25 @@ routers.get("/urls/new", (req, res) => {
 routers.get("/urls/:shortURL", (req, res) => {
   let shortURL = req.params.shortURL;
   let userEmail = helper.getUserEmailByID(req.session.user_id, users);
-  let templateVars = { "shortURL": shortURL, "longURL": "", "email": userEmail, "msg": "" };
+  let templateVars = { "shortURL": "", "longURL": "", "email": userEmail, "msg": "" };
 
   if (shortURL in urlDatabase) {
     if (!req.session.user_id) {
-      templateVars["msg"] = errMsg.USR_NOT_LOGIN;
+      templateVars = { "shortURL": "secret", "longURL": "secret", "email": userEmail, "msg": errMsg.USR_NOT_LOGIN };
     } else {
       //user already logined in
       if (req.session.user_id !== helper.getUserIdByShortURL(shortURL, urlDatabase)) {
         //don't show longURL info when requesting to other user's url
-        templateVars["longURL"] = "";
-        templateVars["msg"] = errMsg.SHTURL_NO_PERMIT;
+        templateVars = { "shortURL": "", "longURL": "", "email": userEmail, "msg": errMsg.SHTURL_NO_PERMIT };
       } else {
         //authorized right user
-        templateVars["longURL"] = urlDatabase[req.params.shortURL]["longURL"];
+        let longURL = req.params.longURL;
+        templateVars = { "shortURL": shortURL, "longURL": longURL, "email": userEmail, "msg": "" };
       }
     }
   } else {
     //url not in the database
+    templateVars["shortURL"] = "Not Exist";
     templateVars["msg"] = errMsg.SHTURL_NOT_EXIST;
   }
 
