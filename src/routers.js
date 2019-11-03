@@ -76,8 +76,8 @@ routers.post("/urls", (req, res) => {
   res.redirect(`/urls/${strRandom}`);  //redirect to shortURL page
 });
 
-//response POST for modifying longURL from the form in url_show
-routers.post("/urls/:shortURL/edit", (req, res) => {
+//response PUT/[Override POST] for modifying longURL from the form in url_show
+routers.put("/urls/:shortURL", (req, res) => {
   let shortURL = req.params.shortURL;
   let userID = helper.getUserIdByShortURL(shortURL, urlDatabase);
   if (userID === req.session.user_id) {

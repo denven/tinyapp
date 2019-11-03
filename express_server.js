@@ -1,6 +1,8 @@
 const routers = require('./src/routers');
 const express = require("express");
 const bodyParser = require("body-parser");
+const methodOverride = require('method-override');
+
 const cookieSession = require('cookie-session');
 const PORT = 8080;          // default port 8080
 
@@ -8,6 +10,7 @@ const app = express();
 
 //bodyParser will translate body into req.body
 app.use(bodyParser.urlencoded({extended: true}));
+app.use(methodOverride('_method'));
 
 app.use(cookieSession({
   name: 'session',

@@ -23,7 +23,7 @@
         <div class="card-header"></div>
         <div class="card-body">
           <font size="12">Edit</font></br>
-          <form class="centered" action="/urls/<%= shortURL %>/edit" method="POST">
+          <form class="centered" action="/urls/<%= shortURL %>?_method=PUT" method="POST">
             <div class="centered">
               <label for="newURL">New URL:</label>
               <input type="text" name="newURL" required placeholder="http://" style="width: 300px; margin: 1em;">
