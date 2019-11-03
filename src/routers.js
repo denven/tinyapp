@@ -161,7 +161,7 @@ routers.get("/urls/:shortURL", (req, res) => {
         templateVars = { "shortURL": "", "longURL": "", "email": userEmail, "msg": errMsg.SHTURL_NO_PERMIT };
       } else {
         //authorized right user
-        let longURL = req.params.longURL;
+        let longURL = urlDatabase[shortURL]["longURL"];
         templateVars = { "shortURL": shortURL, "longURL": longURL, "email": userEmail, "msg": "" };
       }
     }
