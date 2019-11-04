@@ -2,6 +2,8 @@ const routers = require('./src/routers');
 const express = require("express");
 const bodyParser = require("body-parser");
 const methodOverride = require('method-override');
+const favicon = require('serve-favicon');
+const path = require('path');
 
 const cookieSession = require('cookie-session');
 const PORT = 8080;          // default port 8080
@@ -21,6 +23,8 @@ app.use(cookieSession({
 app.set("view engine", "ejs");
 
 app.use(express.static('public'));  //add a directory for store 404 error files
+app.use(favicon(path.join(__dirname,'public', 'favicon.ico')));
+
 app.use(`/`, routers);
 
 app.listen(PORT, () => {

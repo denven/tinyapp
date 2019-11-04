@@ -22,6 +22,7 @@ Link: [More Screenshots](https://github.com/denven/tinyapp/tree/feature/user-reg
 - body-parser
 - cookie-session
 - method-override
+- server-favicon
 
 ## Getting Started
 
