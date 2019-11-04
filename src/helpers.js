@@ -38,6 +38,15 @@ const updateUrlVisitCount = function(shortURL, urlDb) {
   urlDb[shortURL]["visits"] = ++visits;
 };
 
+const updateUrlUniqueVistedIDs = function(shortURL, urlDb, userId) {
+  if (!userId) {
+    userId = "anonymous";
+  }
+  if (!(urlDb[shortURL]["visitedIDs"].find(item => item === userId))) {
+    urlDb[shortURL]["visitedIDs"].push(userId);
+  }
+};
+
 const getUserIdByEmail = function(email, userDb) {
   for (let userID in userDb) {
     if (email === userDb[userID].email) {
@@ -81,6 +90,7 @@ module.exports = {
   getUrlsForUser,
   getUrlVisitCount,
   updateUrlVisitCount,
+  updateUrlUniqueVistedIDs,
   getUserIdByShortURL,
   getUserIdByEmail,
   getUserEmailByID,

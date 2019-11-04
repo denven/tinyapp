@@ -19,12 +19,12 @@ const usersDatabase = {
 
 //Initialized shortURL database
 const urlDatabase = {
-  b6UTxQ: { longURL: "https://www.tsn.ca", userID: "user01", date: "10/14/2019", visits: 0 },
-  i3BoGr: { longURL: "https://www.google.ca", userID: "user01", date: "10/26/2019", visits: 8 },
-  mRo8p6: { longURL: "https://nodejs.org", userID: "user01", date: "10/31/2019", visits: 2 },
-  c8oYxL: { longURL: "https://www.facebook.com", userID: "user02", date: "10/21/2019", visits: 0 },
-  a7p3Ry: { longURL: "https://www.yahoo.com", userID: "tester", date: "10/25/2019", visits: 15 },
-  uTxe9s: { longURL: "https://www.github.com", userID: "tester", date: "10/31/2019", visits: 3 },
+  b6UTxQ: { longURL: "https://www.tsn.ca", userID: "user01", date: "10/14/2019", visits: 0, visitedIDs: [] },
+  i3BoGr: { longURL: "https://www.google.ca", userID: "user01", date: "10/26/2019", visits: 8, visitedIDs:["user01"] },
+  mRo8p6: { longURL: "https://nodejs.org", userID: "user01", date: "10/31/2019", visits: 2, visitedIDs: ["user01"] },
+  c8oYxL: { longURL: "https://www.facebook.com", userID: "user02", date: "10/21/2019", visits: 0, visitedIDs:[] },
+  a7p3Ry: { longURL: "https://www.yahoo.com", userID: "tester", date: "10/25/2019", visits: 15, visitedIDs:["tester"] },
+  uTxe9s: { longURL: "https://www.github.com", userID: "tester", date: "10/31/2019", visits: 3,visitedIDs:["tester"] },
 };
 
 module.exports = {

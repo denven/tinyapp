@@ -20,7 +20,8 @@
             <th>ShortURL</th>
             <th>LongURL</th>
             <th>Created Date</th>
-            <th>Visted Times</th>
+            <th>Total Vists</th>
+            <th>Unique Vists</th>
             <th>Edit</th>
             <th>Delete</th>
           </tr>
@@ -35,7 +36,8 @@
               <td><%= url %></td>  <!-- short URL -->
               <td><%= urls[url]["longURL"] %></td>
               <td><%= urls[url]["date"] %></td>
-              <td align="left"><%= urls[url]["visits"] %></td>
+              <td><%= urls[url]["visits"] %></td>
+              <td><%= urls[url]["visitedIDs"].length %></td>
               <!-- modify the Edit form into the a href tag, more simple -->
               <td> <a href="/urls/<%= url %>"> <button class="btn btn-outline-primary" type="hidden">Edit</button></a> </td>
               <!-- Add motheod delete override post -->

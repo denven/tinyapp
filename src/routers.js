@@ -99,10 +99,10 @@ routers.delete("/urls/:shortURL", (req, res) => {
 });
 
 //GET process from Edit button in url_index
-routers.get("/urls/:shortURL/edit", (req, res) => {
-  let templateVars = {email: helper.getUserEmailByID(req.session.user_id, users)};
-  res.render(`/urls_show`, templateVars);
-});
+//routers.get("/urls/:shortURL/edit", (req, res) => {
+//  let templateVars = {email: helper.getUserEmailByID(req.session.user_id, users)};
+//  res.render(`/urls_show`, templateVars);
+//});
 
 //home page redirection
 routers.get("/", (req, res) => {
@@ -148,43 +148,42 @@ routers.get("/urls/new", (req, res) => {
 //url_show render: display one shortURL's short/long Link info according to login status
 routers.get("/urls/:shortURL", (req, res) => {
   let shortURL = req.params.shortURL;
+  let userID = req.session.user_id;
   let userEmail = helper.getUserEmailByID(req.session.user_id, users);
-  let templateVars = { "shortURL": "", "longURL": "", "email": userEmail, "msg": "" };
+  let templateVars = {"shortURL": "", "url": "", "email": userEmail, "userID": "", "msg": ""};
 
   if (shortURL in urlDatabase) {
     if (!req.session.user_id) {
-      templateVars = { "shortURL": "secret", "longURL": "secret", "email": userEmail, "msg": errMsg.USR_NOT_LOGIN };
+      templateVars["msg"] = errMsg.USR_NOT_LOGIN; //no user logined in
     } else {
       //user already logined in
       if (req.session.user_id !== helper.getUserIdByShortURL(shortURL, urlDatabase)) {
         //don't show longURL info when requesting to other user's url
-        templateVars = { "shortURL": "", "longURL": "", "email": userEmail, "msg": errMsg.SHTURL_NO_PERMIT };
+        templateVars["msg"] = errMsg.SHTURL_NO_PERMIT;
       } else {
         //authorized right user
-        let longURL = urlDatabase[shortURL]["longURL"];
-        templateVars = { "shortURL": shortURL, "longURL": longURL, "email": userEmail, "msg": "" };
+        templateVars = { "shortURL": shortURL, "url": urlDatabase[shortURL], "email": userEmail, "userID": userID, "msg": "" };
       }
     }
   } else {
     //url not in the database
-    templateVars["shortURL"] = "Not Exist";
     templateVars["msg"] = errMsg.SHTURL_NOT_EXIST;
   }
-
   res.render("urls_show", templateVars);
 });
 
 //redirect to display the actual webpage by longURL
 routers.get("/u/:shortURL", (req, res) => {
   let shortURL = req.params.shortURL;
-  let templateVars = { "shortURL": shortURL, "longURL": "", "email": "", "msg": "" };
+  let templateVars = { "shortURL": shortURL, "url": "", "email": "", "userID": "", "msg": "" };
   
   if (shortURL in urlDatabase) {
-    //authorized user is allowed to redirect
     helper.updateUrlVisitCount(shortURL, urlDatabase);
+    helper.updateUrlUniqueVistedIDs(shortURL, urlDatabase, req.session.user_id);
     res.redirect(urlDatabase[shortURL].longURL);
   } else {
     //not existed url request
+    templateVars["shortURL"] = "";
     templateVars["email"] = helper.getUserEmailByID(req.session.user_id, users);
     templateVars["msg"] = errMsg.SHTURL_NOT_EXIST;
     res.render(`urls_show`, templateVars);
