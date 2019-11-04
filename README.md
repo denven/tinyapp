@@ -21,6 +21,7 @@ Link: [More Screenshots](https://github.com/denven/tinyapp/tree/feature/user-reg
 - bcrypt
 - body-parser
 - cookie-session
+- method-override
 
 ## Getting Started
 
